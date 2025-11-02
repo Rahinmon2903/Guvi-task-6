@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const Home = ({ setCart, cart,  handleRemoveFromCart}) => {
+const Home = ({ setCart, cart,  handleRemoveFromCart,  handleAddToCart}) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -15,14 +15,7 @@ const Home = ({ setCart, cart,  handleRemoveFromCart}) => {
       console.log(error);
     }
   };
-  const handleAddToCart = (product) => {
-    const result = cart.find((item) => item.id === product.id);
-    if (result) {
-      return;
-    } else {
-      setCart([...cart, product]);
-    }
-  };
+
   return (
     <div
       className="min-h-screen bg-gradient-to-br pt-20 from-gray-100 via-gray-200 to-gray-300 

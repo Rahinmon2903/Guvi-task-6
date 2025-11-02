@@ -1,34 +1,42 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import Emptycart from "../assets/empty-cart-yellow.png"
 
-const Cart = ({ cart, setCart, handleRemoveFromCart }) => {
- 
- 
-
-  const totalPrice = cart.reduce((x, y) => x + y.price, 0);
+const Cart = ({ cart, handleRemoveFromCart, AddQuantity, SubQuantity }) => {
+  // increments the price based on the quantity
+  const totalPrice = cart.reduce((x, y) => x + y.price * y.quantity, 0);
 
 
+  const discountedTotal = totalPrice * 0.9; 
+
+  // total items (sum of quantities)
+  const totalItems = cart.reduce((acc,item)=> acc + item.quantity,0 )
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 pt-28 px-4 md:px-12 pb-10 flex flex-col lg:flex-row gap-8">
-      {/* 🛒 Left Section - Cart Items */}
+    
       <div className="flex-1 bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
         <h2 className="text-3xl font-bold mb-6 text-gray-800 border-b pb-3 flex items-center gap-2">
           <i className="fa-solid fa-cart-shopping text-yellow-500"></i>
           Your Shopping Cart
         </h2>
 
-        {cart.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-center">
-            <i className="fa-solid fa-cart-shopping text-gray-400 text-6xl mb-4"></i>
-            <p className="text-gray-600 text-lg mb-4">Your cart is empty 🛒</p>
-            <Link
-              to="/"
-              className="px-6 py-2 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold rounded-lg transition shadow"
-            >
-              Continue Shopping
-            </Link>
-          </div>
+       {cart.length === 0 ? (
+  <div className="flex flex-col items-center justify-center py-20 text-center">
+  
+    <img
+      src= {Emptycart}
+      alt="Empty cart"
+      className=" mb-4 opacity-70"
+    />
+
+    <Link
+      to="/"
+      className="px-6 py-2 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold rounded-lg transition shadow"
+    >
+      Continue Shopping
+    </Link>
+  </div>
         ) : (
           <div className="divide-y divide-gray-200">
             {cart.map((item) => (
@@ -54,7 +62,7 @@ const Cart = ({ cart, setCart, handleRemoveFromCart }) => {
 
                   <div className="flex justify-between items-center mt-3">
                     <span className="text-xl font-bold text-gray-900">
-                      ${item.price.toFixed(2)}
+                      ${(item.price * item.quantity).toFixed(2)}
                     </span>
                     <button
                       onClick={() => handleRemoveFromCart(item)}
@@ -63,14 +71,22 @@ const Cart = ({ cart, setCart, handleRemoveFromCart }) => {
                       Remove
                     </button>
                   </div>
-                  <div class="flex items-center gap-3 mt-3">
-                    <button onClick={() => sub(item.id)} class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded-md text-gray-700 hover:bg-gray-200 transition">
+
+                  {/* Quantity Controls */}
+                  <div className="flex items-center gap-3 mt-3">
+                    <button
+                      onClick={() => SubQuantity(item.id)}
+                      className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded-md text-gray-700 hover:bg-gray-200 transition"
+                    >
                       -
                     </button>
-                    <span class="px-4 py-1 border border-gray-300 rounded-md bg-gray-50 text-gray-800 font-medium">
+                    <span className="px-4 py-1 border border-gray-300 rounded-md bg-gray-50 text-gray-800 font-medium">
                       {item.quantity}
                     </span>
-                    <button onClick={() => add1(item.id)} class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded-md text-gray-700 hover:bg-gray-200 transition">
+                    <button
+                      onClick={() => AddQuantity(item.id)}
+                      className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded-md text-gray-700 hover:bg-gray-200 transition"
+                    >
                       +
                     </button>
                   </div>
@@ -91,13 +107,20 @@ const Cart = ({ cart, setCart, handleRemoveFromCart }) => {
           <div className="space-y-3 mb-6">
             <div className="flex justify-between text-gray-700">
               <span>Items:</span>
-              <span>{cart.length}</span>
+              <span>{totalItems}</span>
             </div>
 
             <div className="flex justify-between text-gray-700">
               <span>Subtotal:</span>
               <span className="font-bold text-lg text-gray-900">
                 ${totalPrice.toFixed(2)}
+              </span>
+            </div>
+
+            <div className="flex justify-between text-gray-700">
+              <span>Discount (10%):</span>
+              <span className="text-green-600 font-medium">
+                -${(totalPrice * 0.1).toFixed(2)}
               </span>
             </div>
 
@@ -110,7 +133,7 @@ const Cart = ({ cart, setCart, handleRemoveFromCart }) => {
           <div className="border-t pt-4">
             <div className="flex justify-between text-xl font-semibold text-gray-800 mb-6">
               <span>Total:</span>
-              <span>${totalPrice.toFixed(2)}</span>
+              <span>${discountedTotal.toFixed(2)}</span>
             </div>
 
             <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3 rounded-lg transition-all shadow-md">
@@ -128,3 +151,4 @@ const Cart = ({ cart, setCart, handleRemoveFromCart }) => {
 };
 
 export default Cart;
+
