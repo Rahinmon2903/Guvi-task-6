@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const Home = ({ setCart, cart }) => {
+const Home = ({ setCart, cart,  handleRemoveFromCart}) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const Home = ({ setCart, cart }) => {
   const handleAddToCart = (product) => {
     const result = cart.find((item) => item.id === product.id);
     if (result) {
-      alert("Item already in cart!");
+      return;
     } else {
       setCart([...cart, product]);
     }
@@ -65,16 +65,21 @@ const Home = ({ setCart, cart }) => {
                 <span className="text-2xl font-bold text-gray-900 dark:text-white">
                   ${ele.price.toFixed(2)}
                 </span>
-                <button
-                  onClick={() => handleAddToCart(ele)}
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
-                     focus:outline-none focus:ring-blue-300 font-medium 
-                     rounded-lg text-sm px-5 py-2.5 text-center 
-                     dark:bg-blue-600 dark:hover:bg-blue-700 
-                     dark:focus:ring-blue-800 md:px-3 md:py-1.5 md:text-xs lg:px-5 lg:py-2 lg:text-sm  "
-                >
-                  Add to cart
-                </button>
+                {cart.find((item) => item.id === ele.id) ? (
+                  <button
+                    onClick={() => handleRemoveFromCart(ele)}
+                    className="bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg text-sm px-5 py-2.5"
+                  >
+                    Remove from cart
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleAddToCart(ele)}
+                    className="bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg text-sm px-5 py-2.5"
+                  >
+                    Add to cart
+                  </button>
+                )}
               </div>
             </div>
           </div>
