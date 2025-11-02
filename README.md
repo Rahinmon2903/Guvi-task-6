@@ -1,16 +1,62 @@
-# React + Vite
+🛒 React Shopping Cart
+A simple, responsive shopping cart application built with React. It demonstrates state management, conditional rendering, localStorage persistence, and clean UI/UX practices.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 Features
+Add to Cart: Add products with quantity initialized to 1.
 
-Currently, two official plugins are available:
+Increment/Decrement: Update product quantities safely (never below 1).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Remove Items: Optionally remove products when quantity hits 0 (configurable).
 
-## React Compiler
+Persistent Cart: Cart data is saved in localStorage and restored on refresh.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Responsive UI: TailwindCSS for styling, mobile‑friendly layout.
 
-## Expanding the ESLint configuration
+Routing: Navigate between product listing and cart page using React Router.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Icons: FontAwesome / React Icons for polished visuals.
+
+🛠️ Tech Stack
+React (functional components + hooks)
+
+React Router (navigation)
+
+TailwindCSS (styling)
+
+FontAwesome / React Icons (icons)
+
+localStorage API (persistence)
+
+📂 Project Structure
+Code
+src/
+ ├── components/
+ │    └── Header.jsx
+ ├── pages/
+ │    ├── Home.jsx
+ │    └── Cart.jsx
+ ├── App.jsx
+ ├── main.js
+ └── styles/
+      └── index.css
+⚡ Getting Started
+1. Clone the repo
+bash
+git clone https://github.com/Rahinmon2903/Guvi-task-6
+cd react-cart
+2. Install dependencies
+bash
+npm install
+3. Run locally
+bash
+npm start
+App runs at http://localhost:3000.
+
+🌐 Deployment
+This project is ready for Netlify deployment:
+
+Push your repo to GitHub.
+
+Connect GitHub repo to Netlify.
+
+Netlify auto‑builds and deploys on every push to main.
