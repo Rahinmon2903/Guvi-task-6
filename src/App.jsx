@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./Components/Header";
 import Home from "./Pages/Home";
 import Cart from "./Pages/Cart";
+import PageNotFound from "./Pages/PageNotFound";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -99,6 +100,7 @@ const App = () => {
             />
           }
         />
+        <Route path="*" element={<PageNotFound/>}></Route>
       </Routes>
     </BrowserRouter>
   );
